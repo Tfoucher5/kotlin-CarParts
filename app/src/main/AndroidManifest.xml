@@ -31,9 +31,8 @@
             android:enabled="true"
             android:exported="false" />
         <receiver
-            android:name=".AppLifecycleReceiver"
-            android:enabled="true"
-            android:exported="true"/>
+            android:name=".ForegroundCheckReceiver"
+            android:exported="false" />
 
     </application>
 
