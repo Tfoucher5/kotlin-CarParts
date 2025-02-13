@@ -33,4 +33,10 @@
         android:label="fragment_carte"
         tools:layout="@layout/fragment_carte" >
     </fragment>
+    <fragment
+        android:id="@+id/createFragment"
+        android:name="com.example.carparts.CreatePiecesFragment"
+        android:label="fragment_create"
+        tools:layout="@layout/fragment_create_pieces" >
+    </fragment>
 </navigation>

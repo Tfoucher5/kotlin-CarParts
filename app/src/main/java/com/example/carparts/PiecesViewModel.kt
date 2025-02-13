@@ -122,4 +122,13 @@ class PiecesViewModel : ViewModel() {
     fun updateFavoris(newFavorisList: List<Boolean>) {
         _favorisList.value = newFavorisList
     }
+
+    fun addPiece(piece: Pieces) {
+        val currentPieces = _pieces.value ?: emptyList()
+
+        val updatedPieces = currentPieces + piece
+
+        _pieces.value = updatedPieces
+    }
+
 }

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class PiecesRecyclerAdapter(
     private val context: Context,
-    private val piecesList: List<Pieces>,
+    var piecesList: List<Pieces>,
     private val favorisList: MutableList<Boolean>,
     private val toggleFavoriteListener: (Int) -> Unit
 ) : RecyclerView.Adapter<PiecesRecyclerAdapter.PiecesViewHolder>() {

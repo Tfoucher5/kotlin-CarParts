@@ -23,7 +23,6 @@ class PiecesActivity : AppCompatActivity() {
             findNavController(R.id.nav_host_fragment).navigate(R.id.carteFragment)
         }
 
-
         val osmConf = Configuration.getInstance()
         val basePath = File(getCacheDir().getAbsolutePath(), "osmdroid")
         osmConf.osmdroidBasePath = basePath

@@ -16,6 +16,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.setFragmentResultListener
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.carparts.databinding.FragmentListeBinding
 
@@ -87,12 +89,23 @@ class ListeFragment : Fragment() {
                 requireActivity(),
                 lesPieces,
                 favorisList
-            ) { position ->
-                handleItemClick(position)
-            }
+            ) { position -> handleItemClick(position) }
 
             binding.listePieces.layoutManager = LinearLayoutManager(requireContext())
             binding.listePieces.adapter = adapter
+
+            binding.allerVersCreatePieces.setOnClickListener {
+                findNavController().navigate(R.id.createFragment)
+            }
+
+            setFragmentResultListener("request_key") { key, bundle ->
+                val piece = bundle.getParcelable<Pieces>("pieces")
+                try {
+                    viewModel.addPiece(piece!!)
+                } catch (e: Exception) {
+                    Log.e("ListeFragment", "Erreur lors de l'ajout de la pièce: ${e.message}")
+                }
+            }
         }
     }
 
