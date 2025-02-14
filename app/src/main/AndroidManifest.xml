@@ -19,7 +19,7 @@
         android:theme="@style/Theme.CarParts"
         tools:targetApi="31">
         <activity
-            android:name=".PiecesActivity"
+            android:name=".presentation.ui.PiecesActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,11 +27,11 @@
             </intent-filter>
         </activity>
         <receiver
-            android:name=".AlarmReceiver"
+            android:name=".framework.AlarmReceiver"
             android:enabled="true"
             android:exported="false" />
         <receiver
-            android:name=".ForegroundCheckReceiver"
+            android:name=".domain.ForegroundCheckReceiver"
             android:exported="false" />
 
     </application>

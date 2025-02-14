@@ -1,8 +1,9 @@
-package com.example.carparts
+package com.example.carparts.presentation.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
+import com.example.carparts.R
 import com.example.carparts.databinding.ActivityPiecesBinding
 import org.osmdroid.config.Configuration
 import java.io.File

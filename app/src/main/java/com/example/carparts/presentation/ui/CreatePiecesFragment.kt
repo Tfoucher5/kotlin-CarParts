@@ -1,4 +1,4 @@
-package com.example.carparts
+package com.example.carparts.presentation.ui
 
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -12,7 +12,9 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
+import com.example.carparts.data.Pieces
 import com.example.carparts.databinding.FragmentCreatePiecesBinding
+import com.example.carparts.framework.AlarmReceiver
 
 class CreatePiecesFragment : Fragment() {
 

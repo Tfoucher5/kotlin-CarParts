@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/listeFragment"
-        android:name="com.example.carparts.ListeFragment"
+        android:name="com.example.carparts.presentation.ui.ListeFragment"
         android:label="fragment_liste"
         tools:layout="@layout/fragment_liste" >
         <action
@@ -16,10 +16,13 @@
         <action
             android:id="@+id/action_listeFragment_to_carteFragment"
             app:destination="@id/carteFragment" />
+        <action
+            android:id="@+id/action_listeFragment_to_createFragment2"
+            app:destination="@id/createFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.example.carparts.DetailsFragment"
+        android:name="com.example.carparts.presentation.ui.DetailsFragment"
         android:label="fragment_details"
         tools:layout="@layout/fragment_details" >
         <argument
@@ -29,13 +32,13 @@
     </fragment>
     <fragment
         android:id="@+id/carteFragment"
-        android:name="com.example.carparts.CarteFragment"
+        android:name="com.example.carparts.presentation.ui.CarteFragment"
         android:label="fragment_carte"
         tools:layout="@layout/fragment_carte" >
     </fragment>
     <fragment
         android:id="@+id/createFragment"
-        android:name="com.example.carparts.CreatePiecesFragment"
+        android:name="com.example.carparts.presentation.ui.CreatePiecesFragment"
         android:label="fragment_create"
         tools:layout="@layout/fragment_create_pieces" >
     </fragment>

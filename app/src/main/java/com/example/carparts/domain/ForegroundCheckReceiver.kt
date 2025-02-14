@@ -1,9 +1,10 @@
-package com.example.carparts
+package com.example.carparts.domain
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import com.example.carparts.CarPartsApplication
 
 class ForegroundCheckReceiver : BroadcastReceiver() {
     companion object {

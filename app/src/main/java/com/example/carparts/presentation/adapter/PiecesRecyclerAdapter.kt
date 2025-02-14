@@ -1,4 +1,4 @@
-package com.example.carparts
+package com.example.carparts.presentation.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,6 +9,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.carparts.R
+import com.example.carparts.data.Pieces
+import com.example.carparts.presentation.ui.ListeFragmentDirections
 
 class PiecesRecyclerAdapter(
     private val context: Context,

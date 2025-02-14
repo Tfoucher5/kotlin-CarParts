@@ -1,4 +1,4 @@
-package com.example.carparts
+package com.example.carparts.presentation.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,6 +14,7 @@ import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Marker
 import android.content.Context
+import com.example.carparts.presentation.viewmodel.PiecesViewModel
 
 class CarteFragment : Fragment() {
 

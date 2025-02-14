@@ -1,8 +1,10 @@
-package com.example.carparts
+package com.example.carparts.framework
 
 import android.app.NotificationManager
 import android.content.Context
 import androidx.core.app.NotificationCompat
+import com.example.carparts.CarPartsApplication
+import com.example.carparts.R
 
 object NotificationHelper {
     fun showNotification(context: Context) {
