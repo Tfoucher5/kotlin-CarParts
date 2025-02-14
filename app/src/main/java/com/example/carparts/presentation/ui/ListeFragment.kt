@@ -51,6 +51,7 @@ class ListeFragment : Fragment() {
     ): View {
         _binding = FragmentListeBinding.inflate(inflater, container, false)
         notificationManager = NotificationManagerCompat.from(requireContext())
+        viewModel.initRepository(requireContext())
         return binding.root
     }
 
@@ -75,10 +76,14 @@ class ListeFragment : Fragment() {
     }
 
     private fun hasNotificationPermission(): Boolean {
-        return ContextCompat.checkSelfPermission(
-            requireContext(),
-            Manifest.permission.POST_NOTIFICATIONS
-        ) == PackageManager.PERMISSION_GRANTED
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.POST_NOTIFICATIONS
+            ) == PackageManager.PERMISSION_GRANTED
+        } else {
+            true
+        }
     }
 
     private fun requestNotificationPermission() {
@@ -106,7 +111,7 @@ class ListeFragment : Fragment() {
             val piece = bundle.getParcelable<Pieces>("pieces")
             try {
                 piece?.let {
-                    viewModel.addPiece(requireContext(), it)
+                    viewModel.addPiece(it)
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "Erreur lors de l'ajout de la pièce: ${e.message}")
@@ -126,8 +131,7 @@ class ListeFragment : Fragment() {
             try {
                 val currentPieces = viewModel.pieces.value
                 if (currentPieces.isNullOrEmpty()) {
-                    val repository = viewModel.piecesRepository
-                    val pieces = repository.loadPiecesFromFile(requireContext())
+                    val pieces = viewModel.piecesRepository.loadPieces()
                     withContext(Dispatchers.Main) {
                         viewModel._pieces.value = pieces
                     }
@@ -168,19 +172,23 @@ class ListeFragment : Fragment() {
     }
 
     private fun sendNotification() {
-        if (!hasNotificationPermission()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !hasNotificationPermission()) {
             requestNotificationPermission()
             return
         }
 
-        val builder = NotificationCompat.Builder(requireContext(), CarPartsApplication.CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setContentTitle("Notification test")
-            .setContentText("Ceci est une notification de test.")
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .setAutoCancel(true)
+        try {
+            val builder = NotificationCompat.Builder(requireContext(), CarPartsApplication.CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle("Notification test")
+                .setContentText("Ceci est une notification de test.")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true)
 
-        notificationManager.notify(notificationId++, builder.build())
+            notificationManager.notify(notificationId++, builder.build())
+        } catch (e: SecurityException) {
+            Log.e(TAG, "Permission to send notifications is not granted: ${e.message}")
+        }
     }
 
     override fun onRequestPermissionsResult(
