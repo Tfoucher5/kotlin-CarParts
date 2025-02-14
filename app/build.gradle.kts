@@ -1,4 +1,5 @@
 plugins {
+    kotlin("kapt")
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.navigation.safeargs)
@@ -54,6 +55,10 @@ dependencies {
     implementation(libs.androidx.fragment.ktx)
     implementation (libs.androidx.lifecycle.process)
     implementation (libs.androidx.lifecycle.runtime.ktx)
+    implementation( libs.androidx.room.ktx)
+    implementation(libs.androidx.room.runtime)
+
+    kapt(libs.room.compiler)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

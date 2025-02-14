@@ -1,36 +1,40 @@
 package com.example.carparts.presentation.viewmodel
 
-import android.content.Context
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.carparts.data.PieceDatabase
 import com.example.carparts.data.Pieces
 import com.example.carparts.repository.PiecesRepository
+import kotlinx.coroutines.launch
 
-class PiecesViewModel : ViewModel() {
-    private lateinit var _piecesRepository: PiecesRepository
-    val _pieces = MutableLiveData<List<Pieces>>()
-    private val _favorisList = MutableLiveData<List<Boolean>>()
-
-    val pieces: LiveData<List<Pieces>> get() = _pieces
-    val favorisList: LiveData<List<Boolean>> get() = _favorisList
-
-    fun initRepository(context: Context) {
-        _piecesRepository = PiecesRepository(context)
+class PiecesViewModel(application: Application) : AndroidViewModel(application) {
+    private val database: PieceDatabase by lazy {
+        PieceDatabase.getDatabase(application.applicationContext)
+    }
+    val repository: PiecesRepository by lazy {
+        PiecesRepository(database.pieceDao())
     }
 
-    val piecesRepository: PiecesRepository
-        get() = _piecesRepository
+    val _pieces = MutableLiveData<List<Pieces>>()
+    val pieces: LiveData<List<Pieces>> = _pieces
 
-    fun updateFavoris(newFavorisList: List<Boolean>) {
-        _favorisList.value = newFavorisList
+    init {
+        loadPieces()
+    }
+
+    fun loadPieces() {
+        viewModelScope.launch {
+            _pieces.value = repository.getAllPieces()
+        }
     }
 
     fun addPiece(piece: Pieces) {
-        _piecesRepository.addPiece(piece)
-
-        val currentPieces = _pieces.value ?: emptyList()
-        val updatedPieces = currentPieces + piece
-        _pieces.value = updatedPieces
+        viewModelScope.launch {
+            repository.insertPiece(piece)
+            loadPieces()
+        }
     }
 }

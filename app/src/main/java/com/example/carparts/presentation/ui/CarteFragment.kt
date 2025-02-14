@@ -16,6 +16,7 @@ import org.osmdroid.views.overlay.Marker
 import android.content.Context
 import com.example.carparts.presentation.viewmodel.PiecesViewModel
 
+
 class CarteFragment : Fragment() {
 
     private val viewModel: PiecesViewModel by activityViewModels()

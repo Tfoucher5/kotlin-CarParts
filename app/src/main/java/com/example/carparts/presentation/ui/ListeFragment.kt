@@ -51,7 +51,7 @@ class ListeFragment : Fragment() {
     ): View {
         _binding = FragmentListeBinding.inflate(inflater, container, false)
         notificationManager = NotificationManagerCompat.from(requireContext())
-        viewModel.initRepository(requireContext())
+        //viewModel.initRepository(requireContext())
         return binding.root
     }
 
@@ -131,7 +131,7 @@ class ListeFragment : Fragment() {
             try {
                 val currentPieces = viewModel.pieces.value
                 if (currentPieces.isNullOrEmpty()) {
-                    val pieces = viewModel.piecesRepository.loadPieces()
+                    val pieces = viewModel.repository.getAllPieces()
                     withContext(Dispatchers.Main) {
                         viewModel._pieces.value = pieces
                     }
